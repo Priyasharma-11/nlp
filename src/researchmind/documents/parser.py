@@ -14,7 +14,7 @@ class Block:
     extraction:str='native text'
 
 def heading(line):
-    line=re.sub(r'^\\s*\\d+(?:\\.\\d+)*[.)]?\\s+', '',line).strip().rstrip(':').casefold()
+    line=re.sub(r'^\s*\d+(?:\.\d+)*[.)]?\s+', '',line).strip().rstrip(':').casefold()
     return HEADINGS.get(line)
 
 def _ocr_blocks(page, language='eng', dpi=200):
@@ -86,7 +86,7 @@ def parse_pdf(data, ocr=False, ocr_language='eng', ocr_dpi=200):
                 for line in text.splitlines():
                     h=heading(line)
                     if h:
-                        if current: blocks.append(Block(page.number+1,ordinal,section,'\\n'.join(current),tuple(b[:4]),'OCR' if page.number+1 in ocr_pages else 'native text')); ordinal+=1; current=[]
+                        if current: blocks.append(Block(page.number+1,ordinal,section,'\n'.join(current),tuple(b[:4]),'OCR' if page.number+1 in ocr_pages else 'native text')); ordinal+=1; current=[]
                         section=h
                     elif line.strip(): current.append(line.strip())
                 if current: blocks.append(Block(page.number+1,ordinal,section,'\\n'.join(current),tuple(b[:4]),'OCR' if page.number+1 in ocr_pages else 'native text')); ordinal+=1
