@@ -14,6 +14,10 @@ class Record:
     year:int|None=None
     authors:str=''
     topics:str=''
+    page:int|None=None
+    section:str=''
+    document_id:int|None=None
+    full_text:bool=False
     @property
     def text(self): return '\n'.join((self.title,self.abstract,self.authors,self.topics))
     @property
