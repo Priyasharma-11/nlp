@@ -61,11 +61,11 @@ def analyzer(lib):
     for doc in service.documents(paper):
         with st.expander(doc.filename):
             meta=json.loads(doc.metadata_json); st.caption(f'{meta["page_count"]} pages · SHA-256 {doc.sha256[:12]}…')
-            if meta['empty_pages']: st.warning(f'No text detected on pages {meta["empty_pages"]}. OCR is not implemented; these pages require manual review.')
+            if meta['empty_pages']: st.warning(f'No text detected on pages {meta["empty_pages"]}. These pages still require manual review.')
             st.download_button('Original PDF',doc.original,file_name=doc.filename,mime='application/pdf',key=f'pdf_{doc.id}')
             blocks=service.passages(doc.id); sections=sorted({b.section for b in blocks}); selected=st.multiselect('Sections',sections,default=sections,key=f'sections_{doc.id}')
             for b in blocks:
-                if b.section in selected: st.caption(f'Page {b.page} · {b.section} · {getattr(b,"extraction","native text")}'); st.text(b.text)
+                if b.section in selected: st.caption(f'Page {b.page} · {b.section} · {('OCR' if b.page in meta.get('ocr_pages',[]) else 'native text')}'); st.text(b.text)
             if not blocks: st.info('No extractable text found.')
 
     paper_intelligence(lib,paper)
