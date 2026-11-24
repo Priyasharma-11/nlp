@@ -68,3 +68,18 @@ def test_migration(tmp_path):
     engine.dispose(); lib=Library(initialize(path)); assert lib.papers()[0].title=='Legacy'
     with sqlite3.connect(path) as c: assert c.execute('PRAGMA user_version').fetchone()[0]==2
     assert Library(initialize(path)).papers()[0].title=='Legacy'
+def test_full_text_corpus_search(services):
+    from researchmind.services.retrieval import corpus
+    from researchmind.retrieval.search import Index
+    lib,sc=services
+    paper_id=lib.add_paper(PaperCreate(title='Synthetic paper about neural systems',abstract='A short abstract.'))
+    document_id=sc.upload(paper_id,'synthetic.pdf',pdf())
+    metadata=corpus(lib)
+    assert len(metadata)==1 and metadata[0].id==paper_id
+    passages=corpus(lib,full_text=True)
+    assert passages and all(record.id==paper_id and record.full_text for record in passages)
+    assert any('Synthetic extraction test.' in record.abstract for record in passages)
+    result=Index(passages).search('extraction test',method='BM25')
+    assert result and result[0][0].id==paper_id
+    assert result[0][0].document_id==document_id and result[0][0].page==1
+    assert result[0][0].section=='Abstract'
