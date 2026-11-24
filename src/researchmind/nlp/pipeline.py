@@ -85,6 +85,39 @@ def scientific_entities(text, lexicon):
                     results.append({'text':match.group(),'type':label,'start':match.start(),'end':match.end(),'method':'user lexicon'})
     return sorted(results,key=lambda r:(r['start'],r['end'],r['type']))
 
+@lru_cache(maxsize=1)
+def load_scientific_ner(model_path):
+    """Load a user-downloaded GLiNER model from disk; never downloads weights at runtime."""
+    try:
+        from gliner import GLiNER
+    except ImportError as exc:
+        raise ValueError('Scientific NER needs the optional dependency. Install ResearchMind with the [ner] extra.') from exc
+    from pathlib import Path
+    path=Path(model_path).expanduser()
+    if not path.is_dir():
+        raise ValueError('The GLiNER model path does not exist. Download the model first and enter its local folder.')
+    try:
+        return GLiNER.from_pretrained(str(path))
+    except Exception as exc:
+        raise ValueError(f'Could not load the local GLiNER model: {type(exc).__name__}: {exc}') from exc
+
+def scientific_ner(text, labels, model_path, threshold=0.35):
+    """Zero-shot, multi-domain entity extraction using a locally stored GLiNER model."""
+    if not isinstance(text,str) or not text.strip():
+        raise ValueError('Enter scientific text before running entity recognition.')
+    if not isinstance(labels,list) or not labels or not all(isinstance(x,str) and x.strip() for x in labels):
+        raise ValueError('Provide at least one non-empty entity label.')
+    if not 0.0 < float(threshold) < 1.0:
+        raise ValueError('Threshold must be between 0 and 1.')
+    model=load_scientific_ner(str(model_path))
+    try:
+        predictions=model.predict_entities(text, [x.strip() for x in labels], threshold=float(threshold))
+    except Exception as exc:
+        raise ValueError(f'Scientific NER inference failed: {type(exc).__name__}: {exc}') from exc
+    return [{'text':p.get('text',''),'type':p.get('label',''),'start':int(p.get('start',0)),
+             'end':int(p.get('end',0)),'score':float(p.get('score',0.0)),
+             'method':'GLiNER zero-shot'} for p in predictions]
+
 def word_vectors(texts, word):
     """Exploratory locally trained Word2Vec, not a pretrained scientific model."""
     try: from gensim.models import Word2Vec
