@@ -152,3 +152,15 @@ To run the new focused tests after installing the development dependencies:
 Semantic search can now include passages extracted from PDFs uploaded through Paper analyzer. Enable **Search uploaded PDF text where available** to search those passages alongside metadata records. Results retain the parent paper ID and show the PDF page and heuristic section label for the strongest matching passage. A paper with no extracted passage remains searchable through its metadata.
 
 This feature searches text that PyMuPDF could extract; it does not OCR scanned pages, interpret figures/equations, or guarantee that a passage supports a claim. The ranking score is not a probability. Open the original PDF and verify the cited page before relying on a result. The cloud demo keeps its existing restricted search modes.
+
+### Optional OCR for scanned PDFs (local edition)
+
+Native PDF text extraction remains the default. To OCR pages where no selectable text is detected, install the optional Python packages:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -e ".[ocr]"
+```
+
+You must also install the **Tesseract OCR application** separately and add its executable to Windows PATH. Install the language data for the language code you select (English is `eng`). Restart PyCharm or its terminal after changing PATH. In Paper analyzer, select **Run OCR on pages with no selectable text**, choose the language code and DPI, then extract the PDF. OCR is disabled in the cloud edition.
+
+OCR is applied only to pages with no selectable text, not to mixed pages that contain both selectable text and scanned image regions. Pages still yielding no OCR text remain flagged. OCR can misread characters, scientific notation, tables and equations; review every OCR passage against the original page. Page/section labels remain heuristic, and OCR text is not independently verified.
