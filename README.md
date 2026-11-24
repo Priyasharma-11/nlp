@@ -146,3 +146,9 @@ To run the new focused tests after installing the development dependencies:
 ```powershell
 .\.venv\Scripts\python.exe -m pytest tests/test_nlp.py -q
 ```
+
+### Searching extracted PDF text
+
+Semantic search can now include passages extracted from PDFs uploaded through Paper analyzer. Enable **Search uploaded PDF text where available** to search those passages alongside metadata records. Results retain the parent paper ID and show the PDF page and heuristic section label for the strongest matching passage. A paper with no extracted passage remains searchable through its metadata.
+
+This feature searches text that PyMuPDF could extract; it does not OCR scanned pages, interpret figures/equations, or guarantee that a passage supports a claim. The ranking score is not a probability. Open the original PDF and verify the cited page before relying on a result. The cloud demo keeps its existing restricted search modes.
