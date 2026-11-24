@@ -1,0 +1,42 @@
+# Acceptance checklist
+
+All items pending implementation/verification. No application tests run.
+
+- [ ] Professional application interface.
+- [ ] Functional project navigation.
+- [ ] Scientific-paper ingestion.
+- [ ] PDF text extraction.
+- [ ] Metadata extraction.
+- [ ] NLP preprocessing pipeline.
+- [ ] Tokenization and normalization.
+- [ ] Stemming and lemmatization.
+- [ ] POS tagging and NER.
+- [ ] Bag of Words and TF-IDF.
+- [ ] N-gram analysis.
+- [ ] Text classification.
+- [ ] Scientific embeddings.
+- [ ] Semantic search.
+- [ ] Hybrid retrieval.
+- [ ] Related-paper recommendations.
+- [ ] Structured scientific-paper summaries.
+- [ ] Multi-paper comparison.
+- [ ] Citation analysis.
+- [ ] Research knowledge graph.
+- [ ] RAG implementation.
+- [ ] Evidence-grounded scientific question answering.
+- [ ] Source-linked answers.
+- [ ] Claim verification.
+- [ ] Research trend analytics.
+- [ ] Potential research-gap exploration.
+- [ ] Database integration.
+- [ ] Functional backend integration.
+- [ ] Meaningful error handling.
+- [ ] NLP and retrieval evaluation.
+- [ ] RAG and citation evaluation.
+- [ ] Unit and integration tests.
+- [ ] Security fundamentals.
+- [ ] Deployment configuration.
+- [ ] Deployment verified, or blockers documented.
+- [ ] Organized GitHub repository.
+- [ ] Complete technical documentation.
+- [ ] Project presentation and interview preparation.

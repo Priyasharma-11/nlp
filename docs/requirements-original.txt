@@ -1,0 +1,1285 @@
+make a full end to end project on the above discussion of the session and include each and every topic and points in it and build according to the the below information
+
+AUTONOMOUS FULL-STACK AI PROJECT DEVELOPMENT AGENT
+YOUR ROLE
+Act as a Senior Software Architect, Lead UI/UX Designer, AI/ML Engineer, NLP Research Engineer, Python Developer, Backend Developer, Database Architect, DevOps Engineer, QA Engineer, and Technical Project Manager.
+You are responsible for planning, designing, developing, integrating, testing, debugging, documenting, and preparing the complete ResearchMind application for deployment.
+You are NOT just a coding assistant.
+Operate as an autonomous software development agent that takes ownership of the entire project lifecycle, from initial requirements analysis to final deployment.
+Your objective is to deliver a fully functional, professionally designed, technically advanced application suitable for demonstration to recruiters, technical interviewers, professors, researchers, and industry professionals.
+Work independently on implementation wherever possible, but ask for my approval before every major development phase.
+Do not make major architectural changes, introduce expensive services, connect paid APIs, or deploy publicly without my approval.
+PROJECT INFORMATION
+Project Name: ResearchMind
+Project Category: Advanced NLP + Artificial Intelligence + Machine Learning + Data Science + Full-Stack Web Application
+Development Duration: 2–3 months
+Team Size: Individual
+Project Level: Advanced / Portfolio Quality
+Development Environment: Windows Laptop
+IDE: PyCharm
+Primary Programming Language: Python
+Initial Interface Framework: Streamlit
+Project Objective:
+ResearchMind is an Intelligent Scientific Literature Discovery, Analysis and Reasoning System.
+The platform should help students, researchers, and academics discover relevant scientific papers, understand complex research, analyze scientific literature, identify relationships between research publications, compare methodologies and findings, and explore potential research opportunities.
+The platform should go beyond ordinary PDF summarization or a basic chatbot.
+It should combine:
+
+* Natural Language Processing.
+* Artificial Intelligence.
+* Machine Learning.
+* Information Retrieval.
+* Scientific Document Processing.
+* Semantic Search.
+* Transformer Models.
+* Scientific Text Classification.
+* Named Entity Recognition.
+* Text Summarization.
+* Citation Analysis.
+* Knowledge Graphs.
+* Retrieval-Augmented Generation.
+* Evidence-Based Question Answering.
+* Claim Verification.
+* Research Trend Analysis.
+* Database Management.
+* Full-Stack Development.
+* Data Visualization.
+* Model Evaluation.
+
+The final application must be a properly integrated, functional scientific research intelligence platform.
+PHASE 1: REQUIREMENTS ANALYSIS AND SYSTEM ARCHITECTURE
+Before writing implementation code:
+
+1. Understand the complete ResearchMind requirements.
+2. Break down the system into independent functional modules.
+3. Identify the relationships between modules.
+4. Research suitable NLP, AI, ML, and software technologies.
+5. Identify reliable scientific literature sources and APIs.
+6. Evaluate available datasets and document sources.
+7. Design the overall system architecture.
+8. Define frontend, backend, database, and NLP/ML responsibilities.
+9. Identify development dependencies.
+10. Define a realistic 8-week development roadmap.
+11. Identify technical risks and implementation challenges.
+12. Define measurable success criteria.
+
+Create the following documentation:
+
+* Software Requirements Specification.
+* System Architecture Document.
+* Database Schema.
+* API Specification, if a separate API backend is justified.
+* NLP Pipeline Architecture.
+* Machine Learning Architecture.
+* Retrieval and RAG Architecture.
+* Knowledge Graph Design.
+* UI/UX Design Specification.
+* Evaluation Strategy.
+* Testing Strategy.
+* Deployment Strategy.
+* Development Roadmap.
+
+Do not start randomly generating files without understanding the system.
+Do not create unnecessary modules merely to make the architecture look advanced.
+PHASE 2: TECHNOLOGY STACK
+Select a modern, maintainable, and technically appropriate stack.
+The preferred initial stack is:
+Programming Language
+
+* Python.
+
+Frontend / User Interface
+
+* Streamlit initially.
+* Custom CSS for professional styling.
+* HTML components where appropriate.
+* Plotly for interactive visualizations.
+* PyVis or another suitable graph visualization library where required.
+
+A React + TypeScript frontend may be considered if the project genuinely benefits from a separate frontend architecture. Explain the trade-offs and request approval before changing the initial approach.
+Backend
+
+* Python.
+* Modular application architecture.
+* FastAPI if a separate REST API is justified.
+* Pydantic for validation.
+* SQLAlchemy for database operations.
+
+Database
+
+* SQLite during initial development.
+* PostgreSQL for production or multi-user deployment if justified.
+* SQLAlchemy ORM.
+* Alembic for database migrations when required.
+
+NLP AND MACHINE LEARNING
+
+* NLTK.
+* spaCy.
+* Pandas.
+* NumPy.
+* Scikit-learn.
+* PyTorch.
+* Hugging Face Transformers.
+* Sentence Transformers.
+* SciBERT.
+* SPECTER or SPECTER2, subject to availability and compatibility.
+* Gensim where appropriate.
+* NetworkX.
+* Joblib.
+
+INFORMATION RETRIEVAL
+
+* TF-IDF.
+* BM25.
+* Cosine similarity.
+* Dense vector embeddings.
+* Hybrid retrieval.
+* Reranking models.
+* FAISS or another suitable vector search solution.
+
+GENERATIVE AI
+
+* Retrieval-Augmented Generation.
+* LLM APIs or locally available models.
+* Structured output generation.
+* Evidence-grounded question answering.
+
+Do not assume a paid LLM API is available. Design an appropriate fallback or local development mode.
+DEVELOPMENT AND TESTING
+
+* Git.
+* GitHub.
+* PyCharm.
+* Jupyter Notebook where useful.
+* Pytest.
+* HTTPX where APIs are implemented.
+* Playwright if a separate browser frontend is introduced.
+
+DEPLOYMENT
+
+* Docker where appropriate.
+* GitHub Actions.
+* Streamlit Community Cloud or another suitable hosting platform.
+* PostgreSQL hosting where necessary.
+
+You may replace technologies when there is a strong technical reason, but explain the decision.
+Avoid unnecessary complexity, expensive services, and technologies introduced solely to make the project look advanced.
+PHASE 3: SCIENTIFIC LITERATURE DATA ACQUISITION
+Build a reliable scientific-paper acquisition and document-processing pipeline.
+Explore appropriate sources, including:
+
+* OpenAlex API.
+* Semantic Scholar API.
+* Crossref API.
+* arXiv API.
+* PubMed / Europe PMC where relevant.
+* Open-access institutional repositories.
+
+Evaluate each source based on:
+
+* Availability.
+* API access requirements.
+* Rate limits.
+* Metadata quality.
+* Full-text availability.
+* Licensing.
+* Citation information.
+* Search capabilities.
+
+Do not assume every paper can be downloaded in full text.
+Distinguish between metadata-only records, abstracts, open-access full text, and user-uploaded PDFs.
+Information to collect
+Where available, collect:
+
+* Paper title.
+* Abstract.
+* Authors.
+* Publication year.
+* Journal or conference.
+* DOI.
+* Publication URL.
+* Full-text PDF location.
+* Keywords.
+* Research field.
+* References.
+* Citation information.
+* Dataset information.
+* Methodology.
+* Publication type.
+* Open-access status.
+
+Data Engineering Requirements
+
+1. Retrieve genuine scientific literature records.
+2. Store raw metadata separately from processed records.
+3. Preserve original document information.
+4. Handle missing metadata.
+5. Remove duplicate papers.
+6. Normalize author names and publication metadata where feasible.
+7. Handle inconsistent dates and identifiers.
+8. Validate DOI and URL formats.
+9. Maintain data provenance.
+10. Handle API failures and rate limits.
+11. Implement pagination.
+12. Cache responses where appropriate.
+13. Record source and retrieval timestamps.
+14. Respect API terms, copyright, and document licensing.
+
+Never fabricate scientific papers, authors, DOIs, citations, abstracts, or research findings.
+Never present generated content as if it came directly from a scientific publication.
+PHASE 4: SCIENTIFIC DOCUMENT PROCESSING
+Build a complete scientific document-processing pipeline.
+The platform must support PDF uploads and scientific-paper text extraction.
+Implement:
+
+1. PDF upload and validation.
+2. PDF text extraction.
+3. Document metadata extraction.
+4. Section identification.
+5. Abstract extraction.
+6. Introduction extraction.
+7. Methodology extraction.
+8. Results extraction.
+9. Discussion extraction.
+10. Conclusion extraction.
+11. References extraction.
+12. Text normalization.
+13. Sentence segmentation.
+14. Paragraph segmentation.
+15. Page-level source tracking.
+
+Where possible, distinguish scientific sections using headings and document structure rather than relying only on fixed keyword matching.
+Handle:
+
+* Scanned PDFs.
+* Missing text.
+* Multi-column layouts.
+* Tables.
+* Figures.
+* Mathematical expressions.
+* References.
+* Poorly formatted documents.
+
+Use OCR only when necessary.
+Maintain page numbers and text locations so generated answers can be traced to their source.
+PHASE 5: COMPLETE NLP PIPELINE
+This is one of the core academic and technical components of ResearchMind.
+Implement a modular NLP pipeline.
+5.1 Text Preprocessing
+Implement:
+
+* Text cleaning.
+* Unicode normalization.
+* Lowercasing where appropriate.
+* Special-character handling.
+* Tokenization.
+* Sentence tokenization.
+* Word tokenization.
+* Stopword removal.
+* Stemming.
+* Lemmatization.
+* POS tagging.
+* N-gram generation.
+
+Do not apply transformations blindly. Preserve original scientific terminology, abbreviations, equations, chemical names, and technical expressions when required.
+5.2 Text Representation
+Implement and compare:
+
+* Bag of Words.
+* TF-IDF.
+* Unigrams.
+* Bigrams.
+* Trigrams.
+* Word embeddings.
+* Contextual embeddings.
+* Scientific-domain embeddings.
+
+Explain the strengths and limitations of each representation.
+5.3 Named Entity Recognition
+Extract and identify relevant scientific entities, including:
+
+* Researchers.
+* Organizations.
+* Research methods.
+* Algorithms.
+* Datasets.
+* Diseases and biomedical entities where relevant.
+* Scientific concepts.
+* Technologies.
+* Research domains.
+
+Use general NLP models and scientific-domain models where appropriate.
+Do not claim that a generic NER model reliably recognizes every scientific entity type.
+5.4 Text Classification
+Implement relevant scientific text classification capabilities.
+Potential tasks:
+
+* Research-domain classification.
+* Paper category classification.
+* Methodology classification.
+* Application-area classification.
+* Topic classification.
+
+Evaluate the model using appropriate metrics.
+5.5 Topic Modeling
+Implement suitable topic discovery methods.
+Consider:
+
+* LDA.
+* NMF.
+* BERTopic, if appropriate.
+* Embedding-based clustering.
+
+Display topic keywords, topic distributions, and related papers.
+Do not automatically treat discovered topics as objectively validated research fields.
+5.6 Sentiment and Scientific Language Analysis
+Explore sentiment or stance analysis where it has a meaningful scientific use.
+Distinguish between ordinary sentiment and scientific statements such as positive findings, negative results, limitations, uncertainty, and disagreement.
+Do not apply consumer-review sentiment analysis directly to scientific papers without justification.
+PHASE 6: INTELLIGENT LITERATURE DISCOVERY
+Develop a robust scientific literature discovery engine.
+Users should be able to search using:
+
+* Keywords.
+* Paper titles.
+* Authors.
+* Research domains.
+* Abstracts.
+* Natural-language research questions.
+* Methodology names.
+* Dataset names.
+
+6.1 Lexical Search
+Implement:
+
+* Exact keyword search.
+* TF-IDF retrieval.
+* BM25 retrieval.
+* Metadata filtering.
+* Publication-year filtering.
+* Author filtering.
+* Research-domain filtering.
+
+6.2 Semantic Search
+Implement:
+
+* Sentence embeddings.
+* Scientific paper embeddings.
+* Semantic similarity.
+* Cosine similarity.
+* Similar-paper retrieval.
+* Query-to-paper matching.
+
+Evaluate suitable embedding models rather than assuming one model is always best.
+6.3 Hybrid Search
+Combine lexical and semantic retrieval.
+Implement a configurable ranking approach using:
+
+* Keyword relevance.
+* Semantic similarity.
+* Metadata relevance.
+* Publication information.
+* Citation information where available.
+
+Use a suitable reranking model if beneficial.
+Explain the ranking logic and make it reproducible.
+6.4 Related Paper Recommendation
+Allow users to:
+
+* Find papers similar to a selected paper.
+* Discover papers on related topics.
+* Explore alternative methodologies.
+* Find publications sharing datasets or research approaches.
+
+Explain why each paper was recommended.
+Do not use citation count alone as a measure of research quality.
+PHASE 7: SCIENTIFIC PAPER INTELLIGENCE AND SUMMARIZATION
+Develop a structured scientific paper analysis engine.
+For every supported paper, extract or summarize:
+
+1. Research problem.
+2. Research objectives.
+3. Research questions.
+4. Background.
+5. Proposed methodology.
+6. Algorithms and techniques.
+7. Datasets used.
+8. Experimental setup.
+9. Results.
+10. Main contributions.
+11. Limitations.
+12. Future work.
+
+Clearly distinguish:
+
+* Information explicitly stated in the paper.
+* Model-generated interpretation.
+* Information that could not be extracted reliably.
+
+Multi-Paper Comparison
+Allow users to select multiple papers and compare:
+
+* Research objectives.
+* Methodologies.
+* Models.
+* Datasets.
+* Evaluation metrics.
+* Results.
+* Contributions.
+* Limitations.
+* Research domains.
+* Publication years.
+
+Generate structured comparison tables and visualizations.
+Every extracted claim should retain a link to its supporting source where possible.
+Summarization
+Support:
+
+* Abstract summaries.
+* Full-paper summaries.
+* Section-wise summaries.
+* Technical summaries.
+* Simplified explanations.
+* Multi-paper summaries.
+
+Avoid unsupported claims and hallucinated findings.
+PHASE 8: CITATION ANALYSIS AND RESEARCH KNOWLEDGE GRAPH
+Build a scientific research knowledge graph.
+8.1 Entity Identification
+Identify entities such as:
+
+* Papers.
+* Authors.
+* Institutions.
+* Research methods.
+* Algorithms.
+* Datasets.
+* Research topics.
+* Research questions.
+* Publications.
+* Citations.
+
+8.2 Relationship Extraction
+Establish relationships such as:
+
+* Paper cites paper.
+* Author wrote paper.
+* Paper uses methodology.
+* Paper evaluates dataset.
+* Paper investigates topic.
+* Paper extends previous work.
+* Paper compares algorithms.
+* Institution published research.
+
+Only create relationships supported by available evidence.
+8.3 Knowledge Graph Construction
+Use NetworkX initially.
+Build graph nodes and edges with appropriate attributes and source references.
+Provide interactive graph visualization.
+Users should be able to explore:
+
+* Related papers.
+* Author connections.
+* Methodology relationships.
+* Dataset usage.
+* Citation relationships.
+* Topic clusters.
+
+8.4 Citation Analysis
+Implement:
+
+* Citation counts where available.
+* Citation relationships.
+* Highly connected papers.
+* Related publication networks.
+* Citation-based exploration.
+* Publication timeline analysis.
+
+Do not interpret citation count as a definitive measure of quality or correctness.
+PHASE 9: RETRIEVAL-AUGMENTED GENERATION AND SCIENTIFIC REASONING
+Build an evidence-grounded scientific research assistant.
+The assistant should answer questions using the user's uploaded papers and retrieved scientific literature.
+9.1 Retrieval Pipeline
+Implement:
+
+1. User question processing.
+2. Query normalization.
+3. Relevant document retrieval.
+4. Document chunking.
+5. Embedding generation.
+6. Vector retrieval.
+7. Lexical retrieval.
+8. Hybrid ranking.
+9. Context selection.
+10. Source metadata preservation.
+
+9.2 RAG Implementation
+Build a modular RAG pipeline with:
+
+* Document ingestion.
+* Chunking.
+* Embedding generation.
+* Vector storage.
+* Retrieval.
+* Context construction.
+* LLM response generation.
+* Citation generation.
+
+9.3 Scientific Question Answering
+Users should be able to ask:
+
+* What problem does this paper solve?
+* Which methodology was used?
+* What datasets were evaluated?
+* What were the main findings?
+* What limitations were reported?
+* How do these papers differ?
+* Which paper uses a particular algorithm?
+* What evidence supports a particular claim?
+* What are the common research directions in this collection?
+
+Answers must include source references, preferably page numbers and document sections when available.
+If evidence is insufficient, explicitly say so.
+Never invent citations or page numbers.
+9.4 Claim Verification
+Implement an evidence-based claim verification module.
+Given a scientific claim, retrieve relevant passages and classify the evidence as:
+
+* Supported.
+* Contradicted.
+* Insufficient evidence.
+
+Provide:
+
+* The claim.
+* Retrieved evidence.
+* Supporting paper.
+* Page or section reference where available.
+* Explanation of the classification.
+* Confidence or uncertainty information where appropriately calibrated.
+
+Do not present model confidence as scientific certainty.
+Distinguish contradiction from absence of supporting evidence.
+PHASE 10: RESEARCH TREND ANALYSIS AND POTENTIAL RESEARCH GAPS
+Build analytical tools for discovering research patterns.
+10.1 Research Trend Analysis
+Analyze:
+
+* Publication trends over time.
+* Emerging topics.
+* Frequently studied methodologies.
+* Frequently used datasets.
+* Research-domain distributions.
+* Author and institution patterns where data permits.
+
+Use interactive charts and visualizations.
+10.2 Research Gap Exploration
+Identify possible research opportunities by examining:
+
+* Underexplored combinations of methods and applications.
+* Limitations reported by multiple papers.
+* Research questions not adequately addressed in the collected corpus.
+* Differences in datasets and evaluation approaches.
+* Areas with limited publication coverage.
+* Potential opportunities for further experimentation.
+
+Research-gap outputs must be presented as potential research leads, not guaranteed discoveries.
+Explain which papers and evidence led to each suggestion.
+Never claim that a topic has never been researched simply because it is absent from the current collection.
+PHASE 11: BACKEND AND DATABASE DEVELOPMENT
+Build a properly structured and maintainable application backend.
+Use modular architecture.
+Suggested modules:
+
+* Document Management.
+* Paper Discovery.
+* Paper Metadata.
+* PDF Processing.
+* NLP Preprocessing.
+* Text Classification.
+* Embedding Generation.
+* Semantic Search.
+* Hybrid Retrieval.
+* Summarization.
+* Citation Analysis.
+* Knowledge Graph.
+* RAG.
+* Claim Verification.
+* Research Analytics.
+* User Management, if authentication is implemented.
+* Database Management.
+
+Use a separate FastAPI backend if the architecture and deployment requirements justify it.
+Database Entities
+Potential entities:
+
+* Users.
+* Papers.
+* Authors.
+* Institutions.
+* Documents.
+* Document Sections.
+* Extracted Text.
+* Paper Embeddings.
+* Research Topics.
+* Methodologies.
+* Datasets.
+* Citations.
+* Knowledge Graph Entities.
+* Knowledge Graph Relationships.
+* Summaries.
+* Retrieval Records.
+* Questions.
+* Answers.
+* Evidence Passages.
+* Model Versions.
+* Evaluation Results.
+
+Implement:
+
+* Primary keys.
+* Foreign keys.
+* Constraints.
+* Appropriate indexes.
+* Relationships.
+* Timestamps.
+* Data validation.
+* Database migrations where required.
+
+Ensure that database operations are separated from interface logic.
+Do not store sensitive API keys in the database or frontend.
+PHASE 12: PROFESSIONAL UI/UX DESIGN
+THIS IS A HIGH-PRIORITY REQUIREMENT.
+The platform must look and feel like a professionally developed research intelligence SaaS product.
+Do not create a basic student dashboard.
+Do not use a generic unmodified template.
+Do not create a plain collection of Streamlit widgets without a coherent design system.
+Create a premium, modern, clean, sophisticated scientific research interface.
+DESIGN DIRECTION
+
+* Professional AI research workspace.
+* Modern academic intelligence platform.
+* Minimalist but information-rich.
+* Excellent visual hierarchy.
+* Consistent spacing.
+* Carefully selected typography.
+* Premium cards and panels.
+* Clean navigation.
+* Interactive visualizations.
+* Subtle animations.
+* Responsive layouts.
+* Clear information architecture.
+
+DESIGN SYSTEM
+Define:
+
+* Primary and secondary colors.
+* Background colors.
+* Typography scale.
+* Spacing system.
+* Border-radius system.
+* Button styles.
+* Card styles.
+* Input styles.
+* Navigation styles.
+* Chart styles.
+* Graph visualization styles.
+* Loading states.
+* Error states.
+* Empty states.
+* Success notifications.
+
+Maintain consistency across every application page.
+PAGES TO DESIGN
+1. Landing / Welcome Page
+Include:
+
+* Professional hero section.
+* ResearchMind introduction.
+* Key capabilities.
+* How the system works.
+* NLP and AI technology overview.
+* Feature highlights.
+* Call-to-action.
+* Footer.
+
+2. Main Research Dashboard
+Include:
+
+* Research workspace overview.
+* Total papers in the collection.
+* Recently uploaded papers.
+* Recently searched topics.
+* Research domain distribution.
+* Recent research activity.
+* Quick-access tools.
+
+Only display metrics backed by actual data.
+3. Literature Discovery
+Include:
+
+* Natural-language search.
+* Keyword search.
+* Filters.
+* Search results.
+* Paper relevance scores.
+* Abstract previews.
+* Publication metadata.
+* Similar-paper recommendations.
+
+4. Paper Analysis
+Include:
+
+* PDF upload.
+* Extracted metadata.
+* Structured paper summary.
+* Methodology analysis.
+* Dataset identification.
+* Results and contributions.
+* Limitations.
+* Source references.
+
+5. NLP Laboratory
+Include:
+
+* Text preprocessing.
+* Tokenization.
+* Stopword removal.
+* Stemming.
+* Lemmatization.
+* POS tagging.
+* NER.
+* TF-IDF.
+* N-gram analysis.
+* Text classification.
+* Topic modeling.
+* Embedding comparison.
+
+Allow users to inspect the transformation and output of individual NLP stages.
+6. Paper Comparison
+Include:
+
+* Multi-paper selection.
+* Side-by-side comparison.
+* Methodology comparison.
+* Dataset comparison.
+* Results comparison.
+* Contributions and limitations.
+* Structured tables.
+
+7. Semantic Search and Recommendations
+Include:
+
+* Semantic query input.
+* Similarity-ranked papers.
+* Related paper exploration.
+* Embedding-based recommendations.
+* Search explanations.
+
+8. Knowledge Graph
+Include:
+
+* Interactive paper graph.
+* Authors.
+* Research methods.
+* Datasets.
+* Citations.
+* Topics.
+* Relationships.
+* Graph filters.
+
+9. Research Assistant
+Include:
+
+* Conversational research interface.
+* Document-based question answering.
+* Multi-paper question answering.
+* Evidence retrieval.
+* Source-linked answers.
+* Citation display.
+* Insufficient-evidence handling.
+
+10. Claim Verification
+Include:
+
+* Scientific claim input.
+* Evidence retrieval.
+* Supported / Contradicted / Insufficient evidence result.
+* Source passages.
+* Explanation.
+* Confidence and uncertainty information.
+
+11. Research Analytics
+Include:
+
+* Publication trends.
+* Topic distributions.
+* Methodology trends.
+* Dataset analysis.
+* Citation networks.
+* Potential research opportunities.
+
+12. About and Methodology
+Include:
+
+* Project description.
+* System architecture.
+* NLP methodology.
+* Models used.
+* Data sources.
+* Evaluation methodology.
+* Limitations.
+* Technical documentation.
+
+UI/UX REQUIREMENTS
+
+* Consistent navigation.
+* Responsive layouts.
+* Interactive charts.
+* Functional filters.
+* Search functionality.
+* Skeleton or loading indicators.
+* Meaningful notifications.
+* Confirmation dialogs where necessary.
+* Useful empty states.
+* Accessible colors and controls.
+* Keyboard accessibility.
+* Clear error messages.
+* No broken layouts.
+
+Use realistic scientific content for demonstrations, clearly labelled when it is sample content.
+Every functional metric, result, and recommendation must originate from the actual backend, database, retrieval pipeline, or ML system.
+PHASE 13: FRONTEND AND BACKEND INTEGRATION
+This is mandatory.
+Do not treat the interface and backend as separate deliverables.
+Connect all functional components properly.
+Requirements:
+
+1. Connect every functional interface component to its corresponding module or API.
+2. Implement proper data flow.
+3. Implement document upload and processing.
+4. Connect search to actual retrieval logic.
+5. Connect paper summaries to document analysis.
+6. Connect embeddings to semantic retrieval.
+7. Connect graphs to actual paper relationships.
+8. Connect RAG to document retrieval and evidence.
+9. Connect claim verification to actual retrieved passages.
+10. Ensure analytics use stored scientific records.
+11. Implement loading and error states.
+12. Validate user inputs.
+13. Handle failed API requests.
+14. Ensure database updates are reflected in the interface.
+
+Test the complete data flow:
+USER ACTION → FRONTEND → APPLICATION LOGIC / API → NLP / ML / RETRIEVAL PIPELINE → DATABASE / MODEL → RESPONSE → FRONTEND UPDATE.
+If an operation fails, show a meaningful error instead of displaying fake results.
+Do not use hardcoded arrays to make unfinished components appear functional.
+PHASE 14: TESTING AND EVALUATION
+Act as a professional QA engineer and ML evaluation engineer.
+Implement:
+
+* Unit tests.
+* Integration tests.
+* Database tests.
+* PDF extraction tests.
+* NLP pipeline tests.
+* Retrieval tests.
+* Embedding tests.
+* Summarization tests.
+* Knowledge graph tests.
+* RAG tests.
+* Claim verification tests.
+* User interface tests.
+* End-to-end workflow tests.
+
+Use appropriate tools such as Pytest, HTTPX, and Playwright where applicable.
+NLP AND ML EVALUATION
+Evaluate relevant components using appropriate metrics.
+Text Classification
+
+* Accuracy.
+* Precision.
+* Recall.
+* F1-score.
+* Confusion matrix.
+
+Information Retrieval
+
+* Precision@K.
+* Recall@K.
+* Mean Reciprocal Rank.
+* nDCG@K.
+
+Similarity and Recommendation
+
+* Human relevance assessment.
+* Ranking quality.
+* Precision@K where labels are available.
+
+Summarization
+
+* ROUGE where suitable.
+* BERTScore where suitable.
+* Human evaluation of factual accuracy and completeness.
+
+RAG and Question Answering
+
+* Answer relevance.
+* Faithfulness.
+* Context relevance.
+* Citation correctness.
+* Evidence coverage.
+* Unsupported-claim rate.
+
+Claim Verification
+
+* Classification performance.
+* Precision and recall by evidence category.
+* Evidence relevance.
+* Human review.
+
+Do not use a metric merely because it is popular. Explain why it is appropriate for the task.
+COMPARATIVE EVALUATION
+Compare:
+
+* Keyword search vs TF-IDF vs BM25.
+* Lexical retrieval vs semantic retrieval vs hybrid retrieval.
+* General embeddings vs scientific-domain embeddings.
+* Summarization approaches where feasible.
+* Basic RAG vs improved evidence-aware RAG.
+
+Document experimental conditions and limitations.
+Do not fabricate evaluation results.
+Only report experiments that have actually been run.
+PHASE 15: SECURITY, PERFORMANCE AND RELIABILITY
+Implement:
+
+* Secure file uploads.
+* File type and size validation.
+* Input validation.
+* Environment variables.
+* Secrets management.
+* Safe database queries.
+* API security where applicable.
+* Appropriate access controls.
+* Rate limiting for external APIs.
+* Efficient database queries.
+* Pagination.
+* Caching where appropriate.
+* Logging.
+* Error handling.
+* Resource management.
+* Model loading optimization.
+
+Never expose API keys, passwords, credentials, or secrets in source code or GitHub.
+Do not send private uploaded documents to external APIs without my knowledge and approval.
+Clearly communicate whether processing occurs locally or through an external service.
+PHASE 16: DEPLOYMENT
+Prepare ResearchMind for real-world deployment.
+Implement where appropriate:
+
+* Production application configuration.
+* Dependency management.
+* Environment configuration.
+* Dockerfile.
+* Docker Compose if multiple services are used.
+* GitHub Actions.
+* Health checks.
+* Database configuration.
+* Deployment documentation.
+* Production error handling.
+
+Evaluate appropriate free or affordable deployment options.
+Do not deploy publicly without my approval.
+If deployment requires credentials, account access, payment, or authorization, prepare everything possible and request approval before proceeding.
+Verify the deployed application rather than assuming a successful local run proves deployment success.
+Provide:
+
+* Live application URL.
+* API URL, if applicable.
+* API documentation URL, if applicable.
+* GitHub repository.
+* Installation instructions.
+
+PHASE 17: DOCUMENTATION AND PORTFOLIO DELIVERY
+Produce professional technical documentation.
+Required deliverables:
+
+1. README.md.
+2. Project overview.
+3. Problem statement.
+4. Objectives.
+5. Features.
+6. Technology stack.
+7. System architecture diagram.
+8. Data flow diagram.
+9. Database ER diagram.
+10. NLP pipeline documentation.
+11. Model methodology.
+12. Dataset and literature source documentation.
+13. Retrieval architecture.
+14. RAG architecture.
+15. Knowledge graph design.
+16. Evaluation results.
+17. Installation instructions.
+18. Environment setup.
+19. Testing instructions.
+20. Deployment instructions.
+21. Known limitations.
+22. Future enhancements.
+
+Also prepare:
+
+* Project presentation.
+* Technical interview explanation.
+* Important NLP concepts used.
+* Model selection justifications.
+* Architecture explanation.
+* Challenges and solutions.
+* Demonstration workflow.
+* Portfolio description.
+* Resume-ready project bullet points.
+
+PHASE 18: AUTONOMOUS DEVELOPMENT AGENT OPERATING INSTRUCTIONS
+You must work like an actual professional software development team.
+Initial Environment Inspection
+Before implementation:
+
+1. Inspect the project directory.
+2. Check the available Python version.
+3. Inspect the virtual environment.
+4. Check installed dependencies.
+5. Check Git availability.
+6. Inspect the existing source files.
+7. Identify available terminal and testing capabilities.
+8. Identify whether any external integrations are needed.
+
+My development environment is Windows with PyCharm.
+Do not assume that Linux-specific commands will work.
+Provide Windows PowerShell-compatible commands whenever command-line instructions are required.
+Development Responsibilities
+
+1. Understand the requirements.
+2. Plan the implementation.
+3. Create actual project files.
+4. Write real implementation code.
+5. Integrate the modules.
+6. Run the application.
+7. Inspect the interface.
+8. Test the functionality.
+9. Debug errors.
+10. Fix implementation problems.
+11. Maintain a development checklist.
+12. Update documentation.
+
+Approval Policy
+Divide development into major phases.
+Before every major phase:
+
+* Explain the objective.
+* Explain the planned implementation.
+* Identify files and modules affected.
+* Identify new dependencies.
+* Identify potential risks.
+* State expected deliverables.
+* Request my approval.
+
+Do not proceed with a major architectural or dependency change until approval is received.
+Routine debugging and small implementation corrections within an approved phase may proceed independently.
+Beginner-Friendly Development
+I am developing this project individually and want to understand its implementation.
+Therefore:
+
+* Explain important technical decisions.
+* Explain why each library is being used.
+* Explain the purpose of each major file.
+* Provide exact commands.
+* Specify where code must be placed.
+* Explain how to run and verify functionality.
+* Explain common errors and their solutions.
+* Avoid unnecessary assumptions about my technical experience.
+
+Do not simply dump large amounts of code without explaining the implementation.
+Maintain a balance between autonomous execution and understandable step-by-step development.
+Strict Quality Rules
+
+* Do not stop after creating a project plan.
+* Do not stop after generating UI screens.
+* Do not stop after writing isolated backend functions.
+* Do not deliver a non-functional prototype.
+* Do not simulate successful API calls.
+* Do not use fake data without clearly labelling it.
+* Do not invent scientific papers or citations.
+* Do not fabricate model performance.
+* Do not leave critical functionality as TODO comments.
+* Do not claim a feature is complete without verification.
+* Do not claim tests passed unless they were actually executed.
+* Do not install unnecessary dependencies.
+* Do not expose secrets.
+* Do not sacrifice maintainability for unnecessary complexity.
+
+If a blocker occurs, investigate alternatives and explain the issue.
+Maintain ownership of the complete project lifecycle.
+PHASE 19: DEVELOPMENT ROADMAP
+Use an approximately eight-week development schedule.
+WEEK 1 — PROJECT FOUNDATION AND NLP PREPROCESSING
+
+* Environment setup.
+* Project structure.
+* Dependency management.
+* Git setup.
+* Sample scientific-paper collection.
+* PDF extraction.
+* Text cleaning.
+* Tokenization.
+* Stopword removal.
+* Stemming.
+* Lemmatization.
+* POS tagging.
+* NER.
+
+Deliverable: Working NLP preprocessing pipeline.
+WEEK 2 — CLASSICAL NLP AND INFORMATION RETRIEVAL
+
+* Bag of Words.
+* TF-IDF.
+* N-grams.
+* Text similarity.
+* Cosine similarity.
+* BM25.
+* Basic text classification.
+* Search implementation.
+
+Deliverable: Functional keyword-based scientific literature discovery.
+WEEK 3 — SCIENTIFIC EMBEDDINGS AND SEMANTIC SEARCH
+
+* Transformer fundamentals.
+* Sentence embeddings.
+* Scientific embeddings.
+* SciBERT/SPECTER exploration.
+* Semantic similarity.
+* Related paper recommendations.
+* Lexical and semantic retrieval comparison.
+
+Deliverable: Functional semantic search and paper recommendation engine.
+WEEK 4 — SCIENTIFIC PAPER INTELLIGENCE
+
+* Structured paper extraction.
+* Section identification.
+* Scientific summarization.
+* Methodology extraction.
+* Dataset identification.
+* Results and limitation extraction.
+* Multi-paper comparison.
+
+Deliverable: Scientific paper analysis module.
+WEEK 5 — HYBRID RETRIEVAL AND KNOWLEDGE GRAPH
+
+* Hybrid retrieval.
+* Ranking and reranking.
+* Citation metadata.
+* Entity relationships.
+* Knowledge graph construction.
+* Graph visualization.
+* Citation analysis.
+
+Deliverable: Research knowledge graph and improved literature discovery.
+WEEK 6 — RAG AND SCIENTIFIC QUESTION ANSWERING
+
+* Document chunking.
+* Embedding storage.
+* Evidence retrieval.
+* RAG pipeline.
+* Source-linked answers.
+* Multi-paper question answering.
+* Citation generation.
+
+Deliverable: Functional evidence-grounded research assistant.
+WEEK 7 — REASONING, VERIFICATION AND ANALYTICS
+
+* Claim verification.
+* Supported/contradicted/insufficient evidence.
+* Topic analysis.
+* Research trend analysis.
+* Potential research-gap exploration.
+* Full UI integration.
+
+Deliverable: Integrated ResearchMind application.
+WEEK 8 — TESTING, EVALUATION AND FINALIZATION
+
+* Unit tests.
+* Integration tests.
+* Retrieval evaluation.
+* RAG evaluation.
+* Error analysis.
+* UI improvements.
+* Performance improvements.
+* Documentation.
+* Deployment preparation.
+* Final presentation and demonstration.
+
+Deliverable: Tested, documented, portfolio-quality ResearchMind.
+The roadmap may be adjusted based on technical complexity and actual progress, but core functionality must remain the priority.
+FINAL ACCEPTANCE CRITERIA
+ResearchMind is considered complete only when the following are implemented and verified:
+[ ] Professional application interface.
+[ ] Functional project navigation.
+[ ] Scientific-paper ingestion.
+[ ] PDF text extraction.
+[ ] Metadata extraction.
+[ ] NLP preprocessing pipeline.
+[ ] Tokenization and normalization.
+[ ] Stemming and lemmatization.
+[ ] POS tagging and NER.
+[ ] Bag of Words and TF-IDF.
+[ ] N-gram analysis.
+[ ] Text classification.
+[ ] Scientific embeddings.
+[ ] Semantic search.
+[ ] Hybrid retrieval.
+[ ] Related-paper recommendations.
+[ ] Structured scientific-paper summaries.
+[ ] Multi-paper comparison.
+[ ] Citation analysis.
+[ ] Research knowledge graph.
+[ ] RAG implementation.
+[ ] Evidence-grounded scientific question answering.
+[ ] Source-linked answers.
+[ ] Claim verification.
+[ ] Research trend analytics.
+[ ] Potential research-gap exploration.
+[ ] Database integration.
+[ ] Functional backend integration.
+[ ] Meaningful error handling.
+[ ] NLP and retrieval evaluation.
+[ ] RAG and citation evaluation.
+[ ] Unit and integration tests.
+[ ] Security fundamentals.
+[ ] Deployment configuration.
+[ ] Deployment verified, or blockers documented.
+[ ] Organized GitHub repository.
+[ ] Complete technical documentation.
+[ ] Project presentation and interview preparation.
+YOUR FINAL OBJECTIVE
+Deliver ResearchMind — An Intelligent Scientific Literature Discovery, Analysis and Reasoning System.
+The final product must be a complete, integrated, professional-grade AI/NLP application that:
+
+* Processes genuine scientific literature.
+* Discovers relevant research publications.
+* Understands and analyzes scientific documents.
+* Performs meaningful NLP tasks.
+* Supports semantic and hybrid retrieval.
+* Identifies relationships between papers.
+* Builds a scientific knowledge graph.
+* Answers questions using retrieved evidence.
+* Provides source-linked scientific explanations.
+* Performs evidence-based claim verification.
+* Explores research trends and potential opportunities.
+* Provides a polished and intuitive user experience.
+* Uses real backend functionality and properly stored data.
+* Has been tested and evaluated.
+* Can be confidently demonstrated in a technical interview.
+
+Take responsibility for the complete development lifecycle.
+Start by inspecting the existing ResearchMind project and preparing Phase 1: Requirements Analysis and System Architecture. Do not overwrite existing files or begin major implementation until I approve the proposed architecture and development plan.
