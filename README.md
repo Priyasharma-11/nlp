@@ -121,3 +121,28 @@ Shared workspace styling and expanded Evaluation page are included. Run the offl
 
 ## Phase 8 — Release preparation
 58 backend tests passed; one Streamlit test module skipped in the sandbox. Docker, Windows, live APIs and scientific benchmarks remain unverified. See `docs/deployment.md`, `docs/phase8-status.md` and `docs/phase8-acceptance-audit.md`. Offline BEIR-format evaluation is available through `scripts/evaluate_beir.py`. No public deployment or remote repository has been created.
+
+## Local scientific named-entity recognition (optional)
+
+The NLP laboratory now offers two clearly separated approaches:
+
+- **Local scientific NER (GLiNER):** zero-shot extraction from user-selected labels, suitable for trying multiple scientific domains. It is a model prediction, not a verified annotation or a guarantee of coverage for every discipline.
+- **User terminology dictionary:** exact, boundary-aware matching against terms you supply. This remains useful for controlled vocabularies but is not trained NER.
+
+Install the optional dependency in the project PowerShell terminal:
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -e ".[ner]"
+```
+
+Download a compatible GLiNER model separately from its official model page, review its license and storage requirements, and keep its files in a local folder. ResearchMind does **not** download model weights automatically. In NLP laboratory → Scientific entities, choose **Local scientific NER (GLiNER)**, enter that folder path, and provide comma-separated labels such as:
+
+`method, dataset, disease, gene, protein, chemical, task, material, metric, organism`
+
+The label set is editable; use labels appropriate to the paper's field. Start with the default confidence threshold and inspect the returned text, type, character offsets and score. Predictions can be wrong or miss entities; manually review them before using them in analysis. If the model is not installed or the folder is invalid, the app reports an actionable error rather than silently falling back to the dictionary.
+
+To run the new focused tests after installing the development dependencies:
+
+```powershell
+.\.venv\Scripts\python.exe -m pytest tests/test_nlp.py -q
+```
