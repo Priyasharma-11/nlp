@@ -23,7 +23,7 @@ class Science:
                 if paper.access_level!='uploaded_pdf': paper.access_level='abstract'
             s.add(SourceRecord(paper_id=paper.id,provider=record.provider,external_id=record.external_id,retrieved_at=record.retrieved_at,raw=json.dumps(record.raw,ensure_ascii=False),normalized=json.dumps(record.normalized(),ensure_ascii=False)))
             s.add(Activity(event='Scientific metadata saved')); return paper.id
-    def upload(self,paper_id,filename,data):
+    def upload(self,paper_id,filename,data,ocr=False,ocr_language='eng',ocr_dpi=200):
         if not data or len(data)>20*1024*1024 or not data.startswith(b'%PDF-'): raise ValueError('Upload a valid PDF, maximum 20 MiB.')
         if self.sessions.kw.get('info',{}).get('cloud'):
             from researchmind.cloud import MAX_UPLOAD
@@ -34,11 +34,11 @@ class Science:
             if existing:
                 if existing.paper_id!=paper_id: raise ValueError('This PDF is already attached to another paper.')
                 return existing.id
-        meta,blocks,empty,count=parse_pdf(data)
+        meta,blocks,empty,count,ocr_pages=parse_pdf(data,ocr=ocr,ocr_language=ocr_language,ocr_dpi=ocr_dpi)
         with self.sessions.begin() as s:
             paper=s.get(Paper,paper_id)
             if not paper: raise ValueError('Paper not found.')
-            document=Document(paper_id=paper_id,sha256=digest,filename=PurePath(filename.replace('\\','/')).name[:255],uploaded_at=datetime.now(timezone.utc).isoformat(),original=data,metadata_json=json.dumps({'pdf_metadata':meta,'empty_pages':empty,'page_count':count,'extraction':'local text blocks; section labels heuristic'})); s.add(document); s.flush()
+            document=Document(paper_id=paper_id,sha256=digest,filename=PurePath(filename.replace('\\','/')).name[:255],uploaded_at=datetime.now(timezone.utc).isoformat(),original=data,metadata_json=json.dumps({'pdf_metadata':meta,'empty_pages':empty,'page_count':count,'extraction':'native text plus optional OCR; section labels heuristic','ocr_enabled':bool(ocr),'ocr_language':ocr_language if ocr else None,'ocr_dpi':ocr_dpi if ocr else None,'ocr_pages':ocr_pages})); s.add(document); s.flush()
             s.add_all([Passage(document_id=document.id,page=b.page,ordinal=b.ordinal,section=b.section,text=b.text,bbox_json=json.dumps(b.bbox)) for b in blocks]); paper.access_level='uploaded_pdf'; s.add(Activity(event='PDF uploaded locally')); return document.id
     def documents(self,paper_id):
         with self.sessions() as s: return list(s.scalars(select(Document).where(Document.paper_id==paper_id)))
