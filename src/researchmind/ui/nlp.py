@@ -1,7 +1,7 @@
 import json
 import streamlit as st
 import pandas as pd
-from researchmind.nlp.pipeline import inspect,representations,topics,classify,scientific_entities,word_vectors
+from researchmind.nlp.pipeline import inspect,representations,topics,classify,scientific_entities,scientific_ner,word_vectors
 from researchmind.services.retrieval import corpus
 from researchmind.retrieval.search import Index
 from researchmind.retrieval.embeddings import MODELS
@@ -40,11 +40,29 @@ def laboratory(lib):
             except (ValueError,TypeError,AttributeError) as exc: st.error(str(exc))
 
     with tabs[4]:
-        st.caption('Exact matches against your own scientific terminology; not a trained scientific NER model.')
-        entity_text=st.text_area('Text for terminology matching',max_chars=30000); lex=st.text_area('Entity lexicon (JSON)',max_chars=10000,value='{"METHOD": [], "DATASET": [], "DISEASE": []}')
-        if st.button('Find scientific terminology'):
-            try: st.dataframe(scientific_entities(entity_text,json.loads(lex)))
-            except (ValueError,TypeError) as exc: st.error(str(exc))
+        st.caption('Use a local zero-shot scientific NER model for flexible entity labels, or your own terminology list for exact matching.')
+        mode=st.radio('Recognition method',['Local scientific NER (GLiNER)','User terminology dictionary'],horizontal=True)
+        entity_text=st.text_area('Scientific text',max_chars=30000,key='ner_text')
+        if mode.startswith('Local'):
+            st.info('GLiNER can recognize labels across scientific fields. Results are model predictions, not verified annotations. Model weights must already exist on your computer; ResearchMind will not download them automatically.')
+            model_path=st.text_input('Local GLiNER model folder',placeholder=r'C:\\models\\gliner')
+            labels_text=st.text_input('Entity labels (comma-separated)',value='method, dataset, disease, gene, protein, chemical, task, material, metric, organism')
+            threshold=st.slider('Confidence threshold',0.05,0.95,0.35,0.05)
+            if st.button('Run scientific NER'):
+                try:
+                    labels=[x.strip() for x in labels_text.split(',') if x.strip()]
+                    found=scientific_ner(entity_text,labels,model_path,threshold)
+                    if found:
+                        st.dataframe(pd.DataFrame(found),use_container_width=True)
+                        st.caption('Offsets refer to the original text. Review predictions before using them as research evidence.')
+                    else: st.info('No entities found above the selected threshold.')
+                except ValueError as exc: st.error(str(exc))
+        else:
+            st.caption('Exact, boundary-aware matches only. This is not machine-learned NER.')
+            lex=st.text_area('Entity lexicon (JSON)',max_chars=10000,value='{"METHOD": [], "DATASET": [], "DISEASE": []}')
+            if st.button('Find scientific terminology'):
+                try: st.dataframe(scientific_entities(entity_text,json.loads(lex)),use_container_width=True)
+                except (ValueError,TypeError) as exc: st.error(str(exc))
     with tabs[5]:
         if getattr(lib,"cloud",False):
             st.info("Word2Vec and transformer inference are available in the local edition, not the free cloud demo."); return
