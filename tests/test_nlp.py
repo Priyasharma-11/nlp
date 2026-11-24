@@ -45,3 +45,23 @@ def test_word_vectors():
     pytest.importorskip('gensim')
     from researchmind.nlp.pipeline import word_vectors
     assert word_vectors(['attention neural model','attention transformer model'],'attention')
+def test_scientific_ner_validation():
+    from researchmind.nlp.pipeline import scientific_ner
+    with pytest.raises(ValueError,match='Enter scientific text'):
+        scientific_ner('', ['gene'], 'missing-model')
+    with pytest.raises(ValueError,match='entity label'):
+        scientific_ner('BRCA1 is a gene.', [], 'missing-model')
+    with pytest.raises(ValueError,match='Threshold'):
+        scientific_ner('BRCA1 is a gene.', ['gene'], 'missing-model', 1.0)
+
+def test_scientific_ner_local_model(monkeypatch):
+    from researchmind.nlp import pipeline
+    class FakeModel:
+        def predict_entities(self,text,labels,threshold):
+            assert labels == ['gene','protein']
+            assert threshold == 0.4
+            return [{'text':'BRCA1','label':'gene','start':0,'end':5,'score':0.91}]
+    monkeypatch.setattr(pipeline,'load_scientific_ner',lambda path: FakeModel())
+    found=pipeline.scientific_ner('BRCA1 is a gene.',['gene','protein'],'/local/model',0.4)
+    assert found[0]['text']=='BRCA1' and found[0]['score']==pytest.approx(0.91)
+    assert found[0]['method']=='GLiNER zero-shot'
