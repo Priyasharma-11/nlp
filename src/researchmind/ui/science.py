@@ -46,7 +46,13 @@ def analyzer(lib):
     names={p.id:p.title for p in papers}; paper=st.selectbox('Select paper',list(names),format_func=names.get)
     for source in service.sources(paper):
         with st.expander(f'{source.provider} metadata · {source.retrieved_at}'): st.json(json.loads(source.normalized))
-    file=st.file_uploader('Upload an authorized public PDF (max 5 MiB)' if getattr(lib,'cloud',False) else 'Upload an authorized PDF (max 20 MiB)',type=['pdf'])\n    use_ocr=False; ocr_language='eng'; ocr_dpi=200\n    if not getattr(lib,'cloud',False):\n        use_ocr=st.checkbox('Run OCR on pages with no selectable text (optional)',value=False)\n        if use_ocr:\n            ocr_language=st.text_input('Tesseract language code',value='eng',help='Install the matching Tesseract language data on this computer.')\n            ocr_dpi=st.slider('OCR resolution (DPI)',120,300,200,20)
+    file=st.file_uploader('Upload an authorized public PDF (max 5 MiB)' if getattr(lib,'cloud',False) else 'Upload an authorized PDF (max 20 MiB)',type=['pdf'])
+    use_ocr=False; ocr_language='eng'; ocr_dpi=200
+    if not getattr(lib,'cloud',False):
+        use_ocr=st.checkbox('Run OCR on pages with no selectable text (optional)',value=False)
+        if use_ocr:
+            ocr_language=st.text_input('Tesseract language code',value='eng',help='Install the matching Tesseract language data on this computer.')
+            ocr_dpi=st.slider('OCR resolution (DPI)',120,300,200,20)
     if file is not None and st.button('Extract PDF',type='primary'):
         try:
             with st.spinner('Extracting PDF text...'): service.upload(paper,file.name,file.getvalue(),ocr=use_ocr,ocr_language=ocr_language,ocr_dpi=ocr_dpi)
@@ -59,7 +65,7 @@ def analyzer(lib):
             st.download_button('Original PDF',doc.original,file_name=doc.filename,mime='application/pdf',key=f'pdf_{doc.id}')
             blocks=service.passages(doc.id); sections=sorted({b.section for b in blocks}); selected=st.multiselect('Sections',sections,default=sections,key=f'sections_{doc.id}')
             for b in blocks:
-                if b.section in selected: st.caption(f'Page {b.page} · {b.section} · {getattr(b,\"extraction\",\"native text\")}'); st.text(b.text)
+                if b.section in selected: st.caption(f'Page {b.page} · {b.section} · {getattr(b,"extraction","native text")}'); st.text(b.text)
             if not blocks: st.info('No extractable text found.')
 
     paper_intelligence(lib,paper)
