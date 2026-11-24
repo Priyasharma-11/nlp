@@ -26,19 +26,22 @@ def inspect(text):
     out={'normalized':normalize(text),'tokens':words,'lowercase':lower,'filtered':stop,
          'stems':[PorterStemmer().stem(w) for w in stop], 'warnings':[]}
     try:
-        import nltk
-        out['sentences']=nltk.sent_tokenize(text)
-    except LookupError:
-        out['sentences']=re.split(r'(?<=[.!?])\s+',normalize(text)); out['warnings'].append('Punkt unavailable; sentence boundaries use a simple heuristic.')
-    try:
         doc=language_model()(text)
+        out['sentences']=[s.text.strip() for s in doc.sents if s.text.strip()]
         out['pos']=[(t.text,t.pos_) for t in doc if not t.is_space]
         out['lemmas']=[(t.text,t.lemma_) for t in doc if not t.is_space]
         out['entities']=[(e.text,e.label_,e.start_char,e.end_char) for e in doc.ents]
     except (OSError,ImportError):
         out['warnings'].append('spaCy English model unavailable; POS and NER not run.')
-        try: out['lemmas']=[(w,WordNetLemmatizer().lemmatize(w)) for w in stop]
-        except LookupError: out['warnings'].append('WordNet unavailable; lemmatization not run.')
+        try:
+            import nltk
+            out['sentences']=nltk.sent_tokenize(text)
+        except LookupError:
+            out['sentences']=re.split(r'(?<=[.!?])\s+',normalize(text)); out['warnings'].append('Punkt unavailable; sentence boundaries use a simple heuristic.')
+        try:
+            out['lemmas']=[(w,WordNetLemmatizer().lemmatize(w)) for w in stop]
+        except LookupError:
+            out['warnings'].append('WordNet unavailable; lemmatization not run.')
     out['ngrams']={n:Counter(tuple(lower[i:i+n]) for i in range(len(lower)-n+1)).most_common(30) for n in (1,2,3)}
     return out
 
