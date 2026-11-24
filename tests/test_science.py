@@ -83,3 +83,20 @@ def test_full_text_corpus_search(services):
     assert result and result[0][0].id==paper_id
     assert result[0][0].document_id==document_id and result[0][0].page==1
     assert result[0][0].section=='Abstract'
+def test_ocr_only_runs_for_pages_without_native_text(monkeypatch):
+    import researchmind.documents.parser as parser
+    calls=[]
+    def fake_ocr(page,language,dpi):
+        calls.append((page.number+1,language,dpi))
+        return [(100,100,'Scanned page text',(10.0,10.0,80.0,20.0))]
+    monkeypatch.setattr(parser,'_ocr_blocks',fake_ocr)
+    meta,blocks,empty,count,ocr_pages=parser.parse_pdf(pdf(),ocr=True,ocr_language='eng',ocr_dpi=180)
+    assert count==2 and ocr_pages==[2] and empty==[]
+    assert calls==[(2,'eng',180)]
+    assert any(b.page==2 and b.extraction=='OCR' and 'Scanned page text' in b.text for b in blocks)
+
+def test_ocr_invalid_settings():
+    with pytest.raises(ValueError,match='resolution'):
+        parse_pdf(pdf(),ocr=True,ocr_dpi=72)
+    with pytest.raises(ValueError,match='language'):
+        parse_pdf(pdf(),ocr=True,ocr_language='bad language')
