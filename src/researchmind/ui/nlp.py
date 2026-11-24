@@ -81,24 +81,44 @@ def laboratory(lib):
                 except ValueError as exc: st.warning(str(exc))
 
 def search(lib):
-    st.title('Semantic search'); st.caption('Search saved title and abstract metadata. Scores are ranking signals, not probabilities.')
-    records=corpus(lib)
-    if not records: st.info('Save papers in Discover papers or Library first.'); return
-    query=st.text_input('Research question or keywords'); method=st.selectbox('Ranking',METHODS[:3] if getattr(lib,'cloud',False) else METHODS,index=2); model=st.selectbox('Local embedding model',list(MODELS),disabled=getattr(lib,'cloud',False)); weight=st.slider('Semantic weight (hybrid only)',0.,1.,.5,disabled=getattr(lib,'cloud',False)); k=st.slider('Results',1,30,10)
+    st.title('Semantic search')
+    st.caption('Search metadata or extracted PDF passages. Full-text results include page and section references; scanned pages without extracted text are not indexed.')
+    metadata_records=corpus(lib)
+    if not metadata_records: st.info('Save papers in Discover papers or Library first.'); return
+    full_text=st.toggle('Search uploaded PDF text where available',value=True,disabled=getattr(lib,'cloud',False))
+    records=corpus(lib,full_text=full_text)
+    if full_text and not any(r.full_text for r in records):
+        st.info('No extracted PDF passages are available yet. Upload a text-based PDF in Paper analyzer; metadata remains searchable.')
+    query=st.text_input('Research question or keywords')
+    method=st.selectbox('Ranking',METHODS[:3] if getattr(lib,'cloud',False) else METHODS,index=2)
+    model=st.selectbox('Local embedding model',list(MODELS),disabled=getattr(lib,'cloud',False))
+    weight=st.slider('Semantic weight (hybrid only)',0.,1.,.5,disabled=getattr(lib,'cloud',False))
+    k=st.slider('Results',1,30,10)
     author=st.text_input('Author filter'); topic=st.text_input('Topic filter'); year=st.text_input('Publication year (optional)')
-    selected=st.selectbox('Related-paper seed (optional)',[None]+[r.id for r in records],format_func=lambda x: 'None' if x is None else next(r.title for r in records if r.id==x))
-    if st.button('Search saved papers'):
+    selected=st.selectbox('Related-paper seed (optional)',[None]+[r.id for r in metadata_records],format_func=lambda x:'None' if x is None else next(r.title for r in metadata_records if r.id==x))
+    if st.button('Search papers'):
         try:
             filtered=[r for r in records if author.casefold() in r.authors.casefold() and topic.casefold() in r.topics.casefold() and (not year.strip() or r.year==int(year))]
-            index=Index(filtered); kwargs=dict(method=method,model=model,k=k,weight=weight)
+            index=Index(filtered); kwargs=dict(method=method,model=model,k=max(k,len(filtered)),weight=weight)
             if selected is None: result=index.search(query,**kwargs)
             else:
-                seed=next(r for r in records if r.id==selected); result=index.search(seed.scientific_text,exclude=selected,role='paper',**kwargs)
-            if not result: st.info('No positive-scoring matches in this collection.')
-            for r,score in result:
+                seed=next(r for r in metadata_records if r.id==selected)
+                result=index.search(seed.scientific_text,exclude=selected,role='paper',**kwargs)
+            best={}
+            for record,score in result:
+                if record.id not in best or score>best[record.id][1]: best[record.id]=(record,score)
+            ordered=sorted(best.values(),key=lambda item:item[1],reverse=True)[:k]
+            if not ordered: st.info('No positive-scoring matches in this collection.')
+            for r,score in ordered:
                 with st.container(border=True):
-                    st.text(r.title); st.caption(f'Paper {r.id} · {r.year or "Unknown year"} · {method} score {score:.4f}'); st.text(r.abstract or 'Abstract unavailable'); st.caption('Matched by '+method+'; inspect original paper before drawing conclusions.')
-        except ValueError as exc: st.error(str(exc))
+                    st.text(r.title)
+                    citation=f'Paper {r.id} · {r.year or "Unknown year"} · {method} score {score:.4f}'
+                    if r.full_text: citation+=f' · PDF page {r.page} · {r.section or "Unlabelled section"}'
+                    st.caption(citation)
+                    st.text(r.abstract if r.full_text else (r.abstract or 'Abstract unavailable'))
+                    st.caption('Matched PDF passage' if r.full_text else 'Matched title/abstract metadata')
+                    st.caption('Ranking scores are not probabilities or evidence of scientific correctness. Check the cited page in the original PDF.')
+        except (ValueError,TypeError) as exc: st.error(str(exc))
 
 def evaluation(lib):
     st.title('Evaluation'); st.caption('Measure retrieval on your own relevance judgments. No default performance scores.')
