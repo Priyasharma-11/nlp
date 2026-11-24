@@ -89,5 +89,5 @@ def parse_pdf(data, ocr=False, ocr_language='eng', ocr_dpi=200):
                         if current: blocks.append(Block(page.number+1,ordinal,section,'\n'.join(current),tuple(b[:4]),'OCR' if page.number+1 in ocr_pages else 'native text')); ordinal+=1; current=[]
                         section=h
                     elif line.strip(): current.append(line.strip())
-                if current: blocks.append(Block(page.number+1,ordinal,section,'\\n'.join(current),tuple(b[:4]),'OCR' if page.number+1 in ocr_pages else 'native text')); ordinal+=1
+                if current: blocks.append(Block(page.number+1,ordinal,section,'\n'.join(current),tuple(b[:4]),'OCR' if page.number+1 in ocr_pages else 'native text')); ordinal+=1
         return meta,blocks,empty,len(doc),ocr_pages
