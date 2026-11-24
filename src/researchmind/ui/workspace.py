@@ -39,6 +39,20 @@ def main(cloud=False):
             st.stop()
     try: lib=workspace(st.session_state) if cloud else get_library(Settings.from_env().database)
     except (OSError, SQLAlchemyError): st.error('Cannot open local database. Check folder permissions.'); return
+    if cloud:
+        from researchmind.services.demo import load_demo, PAPERS
+        if st.sidebar.button('Load demo papers',type='primary'):
+            try:
+                added=load_demo(lib)
+                st.success(f'Demo collection ready: {added} new papers added.')
+            except (ValueError, SQLAlchemyError):
+                st.error('Could not load the demo collection. Check workspace limits or reset the workspace.')
+        if page=='Welcome':
+            with st.expander('Demo collection: six real NLP papers',expanded=True):
+                st.caption('Click Load demo papers in the sidebar. These records include editorial summaries, not author abstracts or full PDFs.')
+                for title,year,doi,url,authors,topics,note in PAPERS:
+                    st.markdown(f'**[{title}]({url})** · {year}')
+                    st.caption(note)
     st.markdown('<div class="rm-kicker">RESEARCHMIND / WORKSPACE</div>',unsafe_allow_html=True)
     try: render(page,lib)
     except SQLAlchemyError: st.error('Database operation failed. Check local storage and retry.')
